@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Customers{% endblock %}
+{% block page_title %}Customers{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <!-- Left Side: Customers Table in Dark Panel -->
+  <div class="col-12 col-lg-7">
+    <div class="panel-dark h-100">
+      <h2 class="panel-title">
+        <span>Registered Customers</span>
+        <span style="font-size:14px; color:var(--panel-muted); font-weight:normal;">
+          {{ customers|length }} total
+        </span>
+      </h2>
+
+      {% if customers %}
+        <div class="table-responsive-box">
+          <table class="shelf-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for customer in customers %}
+                <tr>
+                  <td><strong>{{ customer.name }}</strong></td>
+                  <td>{{ customer.phone or "—" }}</td>
+                  <td>{{ customer.email or "—" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <i class="bi bi-people"></i>
+          <p>No customers yet</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Right Side: Green Add Customer Card -->
+  <div class="col-12 col-lg-5">
+    <div class="card-green">
+      <h2 class="card-title">Add Customer</h2>
+      
+      <form method="POST" action="{{ url_for('customers') }}" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <!-- Customer Name -->
+        <div class="form-group">
+          <label for="name" class="form-label-shelf form-label-light">Customer Name *</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            class="input-shelf" 
+            value="{{ form_data.name or '' }}" 
+            placeholder="e.g. Rahul Verma"
+            required
+          >
+          {% if errors.name %}
+            <div class="form-error-msg" style="color: #FFD4D0;">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>{{ errors.name }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label for="phone" class="form-label-shelf form-label-light">Phone Number (optional)</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone" 
+            class="input-shelf" 
+            value="{{ form_data.phone or '' }}" 
+            placeholder="e.g. +91 98765 43210"
+          >
+          {% if errors.phone %}
+            <div class="form-error-msg" style="color: #FFD4D0;">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>{{ errors.phone }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="email" class="form-label-shelf form-label-light">Email Address (optional)</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="input-shelf" 
+            value="{{ form_data.email or '' }}" 
+            placeholder="e.g. rahul@example.com"
+          >
+          {% if errors.email %}
+            <div class="form-error-msg" style="color: #FFD4D0;">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>{{ errors.email }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Full-width dark button -->
+        <div class="mt-4 pt-2">
+          <button type="submit" class="btn-shelf btn-dark-shelf w-100">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Save Customer</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
