@@ -24,9 +24,8 @@
 
   <!-- Mobile Topbar -->
   <header class="mobile-topbar" aria-label="Mobile Navigation">
-    <a href="{{ url_for('dashboard') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-      <div class="logo-monogram" style="width:36px; height:36px; font-size:15px;">SS</div>
-      <span class="logo-wordmark" style="font-size:20px;">Shel<em>f</em>Sync</span>
+    <a href="{{ url_for('dashboard') }}" class="d-flex align-items-center text-decoration-none">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="ShelfSync" class="mobile-logo-img">
     </a>
     <button type="button" class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Menu">
       <i class="bi bi-list"></i>
@@ -40,11 +39,7 @@
     <!-- Left Sidebar -->
     <aside class="app-sidebar" id="appSidebar">
       <a href="{{ url_for('dashboard') }}" class="logo-container">
-        <div class="logo-monogram">SS</div>
-        <div>
-          <span class="logo-wordmark">Shel<em>f</em>Sync</span>
-          <span class="logo-subtext">Shree Mart</span>
-        </div>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="ShelfSync" class="sidebar-logo-img">
       </a>
 
       <!-- 5 Navigation Links with Icons in order -->

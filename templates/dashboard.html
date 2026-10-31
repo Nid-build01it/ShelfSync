@@ -82,7 +82,7 @@
                   <td>{{ sale.customer_name or "Walk-in customer" }}</td>
                   <td><strong>{{ sale.total_paise | inr }}</strong></td>
                   <td class="text-end">
-                    <a href="{{ url_for('invoice_view', invoice_id=sale.id) }}" class="btn-shelf btn-outline-shelf py-1 px-3" style="font-size:13px; min-height:34px;">
+                    <a href="{{ url_for('invoice_view', invoice_id=sale.id) }}" class="btn-shelf btn-outline-shelf py-1 px-3 view-link" style="font-size:13px; min-height:34px;">
                       View
                     </a>
                   </td>
@@ -114,14 +114,14 @@
         {% if low_stock_items %}
           <div class="d-flex flex-column gap-3">
             {% for item in low_stock_items %}
-              <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(37, 77, 50, 0.25);">
+              <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(17, 18, 20, 0.12);">
                 <div class="d-flex align-items-center">
                   <span class="status-dot {{ 'dot-red' if item.stock_quantity == 0 else 'dot-amber' }}"></span>
                   <div>
-                    <a href="{{ url_for('products') }}" style="color:var(--card-text); text-decoration:none; font-weight:500;">
+                    <a href="{{ url_for('products') }}" style="color:var(--card-stat-text); text-decoration:none; font-weight:600;">
                       {{ item.name }}
                     </a>
-                    <div style="font-size:13px; color:var(--card-muted);">
+                    <div style="font-size:13px; color:var(--card-stat-muted);">
                       Alert at &le; {{ item.low_stock_threshold }}
                     </div>
                   </div>

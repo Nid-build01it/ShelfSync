@@ -33,9 +33,15 @@ def seeded_client():
         with app.app_context():
             yield client
 
-    os.close(db_fd)
-    if os.path.exists(db_path):
-        os.unlink(db_path)
+    try:
+        os.close(db_fd)
+    except OSError:
+        pass
+    try:
+        if os.path.exists(db_path):
+            os.unlink(db_path)
+    except OSError:
+        pass
 
 
 @pytest.fixture
@@ -54,9 +60,15 @@ def empty_client():
         with app.app_context():
             yield client
 
-    os.close(db_fd)
-    if os.path.exists(db_path):
-        os.unlink(db_path)
+    try:
+        os.close(db_fd)
+    except OSError:
+        pass
+    try:
+        if os.path.exists(db_path):
+            os.unlink(db_path)
+    except OSError:
+        pass
 
 
 def test_pages_with_seeded_data(seeded_client):
@@ -64,7 +76,7 @@ def test_pages_with_seeded_data(seeded_client):
     # Dashboard
     res = seeded_client.get("/")
     assert res.status_code == 200
-    assert b"Shree Mart" in res.data
+    assert b"ShelfSync" in res.data
     assert b"Total Products" in res.data
     assert b"Total Sales" in res.data
 

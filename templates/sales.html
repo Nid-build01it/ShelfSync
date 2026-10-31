@@ -40,7 +40,7 @@
                 <strong>{{ sale.total_paise | inr }}</strong>
               </td>
               <td class="text-end">
-                <a href="{{ url_for('invoice_view', invoice_id=sale.id) }}" class="btn-shelf btn-outline-shelf py-1 px-3" style="font-size:13px; min-height:36px;">
+                <a href="{{ url_for('invoice_view', invoice_id=sale.id) }}" class="btn-shelf btn-outline-shelf py-1 px-3 view-link" style="font-size:13px; min-height:36px;">
                   <i class="bi bi-eye"></i>
                   <span>View</span>
                 </a>
