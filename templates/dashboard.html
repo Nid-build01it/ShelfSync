@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Stat Cards Row: 3 per row on desktop, 2 on tablet, 1 on phone -->
+<div class="row g-4 mb-4">
+  <!-- Total Products -->
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="bi bi-box-seam"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Total Products</div>
+        <div class="stat-value">{{ total_products }}</div>
+        <div class="stat-subtitle">In catalog</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Customers -->
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="bi bi-people"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Total Customers</div>
+        <div class="stat-value">{{ total_customers }}</div>
+        <div class="stat-subtitle">Registered profiles</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Sales -->
+  <div class="col-12 col-md-12 col-lg-4">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="bi bi-cash-stack"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Total Sales</div>
+        <div class="stat-value">{{ total_sales_paise | inr }}</div>
+        <div class="stat-subtitle">{{ total_invoices }} {{ "invoice" if total_invoices == 1 else "invoices" }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lower Row: Recent Sales (Left dark panel) & Low Stock Alerts (Right green card) -->
+<div class="row g-4">
+  <!-- Recent Sales -->
+  <div class="col-12 col-lg-7">
+    <div class="panel-dark h-100">
+      <div class="panel-title">
+        <span>Recent Sales</span>
+        <a href="{{ url_for('sales_history') }}" class="btn-shelf btn-outline-shelf py-1 px-3" style="font-size:13px; min-height:36px;">
+          View All
+        </a>
+      </div>
+
+      {% if recent_sales %}
+        <div class="table-responsive-box">
+          <table class="shelf-table">
+            <thead>
+              <tr>
+                <th>Invoice</th>
+                <th>Customer</th>
+                <th>Total</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sale in recent_sales %}
+                <tr>
+                  <td>
+                    <strong>INV-{{ "%04d" | format(sale.id) }}</strong>
+                    <div style="font-size:12px; color:var(--panel-muted);">{{ sale.created_at }}</div>
+                  </td>
+                  <td>{{ sale.customer_name or "Walk-in customer" }}</td>
+                  <td><strong>{{ sale.total_paise | inr }}</strong></td>
+                  <td class="text-end">
+                    <a href="{{ url_for('invoice_view', invoice_id=sale.id) }}" class="btn-shelf btn-outline-shelf py-1 px-3" style="font-size:13px; min-height:34px;">
+                      View
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <i class="bi bi-receipt"></i>
+          <p>No sales yet</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Low Stock Card -->
+  <div class="col-12 col-lg-5">
+    <div class="card-green h-100 d-flex flex-column">
+      <div class="card-title d-flex justify-content-between align-items-center">
+        <span>Low Stock ({{ low_stock_count }})</span>
+        <a href="{{ url_for('products') }}" class="btn-shelf btn-dark-shelf py-1 px-3" style="font-size:13px; min-height:36px;">
+          Manage
+        </a>
+      </div>
+
+      <div class="flex-grow-1">
+        {% if low_stock_items %}
+          <div class="d-flex flex-column gap-3">
+            {% for item in low_stock_items %}
+              <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(37, 77, 50, 0.25);">
+                <div class="d-flex align-items-center">
+                  <span class="status-dot {{ 'dot-red' if item.stock_quantity == 0 else 'dot-amber' }}"></span>
+                  <div>
+                    <a href="{{ url_for('products') }}" style="color:var(--card-text); text-decoration:none; font-weight:500;">
+                      {{ item.name }}
+                    </a>
+                    <div style="font-size:13px; color:var(--card-muted);">
+                      Alert at &le; {{ item.low_stock_threshold }}
+                    </div>
+                  </div>
+                </div>
+                <div class="text-end">
+                  {% if item.stock_quantity == 0 %}
+                    <span class="badge-pill badge-out">0 left</span>
+                  {% else %}
+                    <span class="badge-pill badge-low">{{ item.stock_quantity }} left</span>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="empty-state" style="color:var(--card-muted);">
+            <i class="bi bi-shield-check"></i>
+            <p>All products have healthy stock levels</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
