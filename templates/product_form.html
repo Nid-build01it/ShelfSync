@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}{{ "Edit Product" if is_edit else "Add Product" }}{% endblock %}
+{% block page_title %}{{ "Edit Product" if is_edit else "Add Product" }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-10 col-lg-8" style="max-width: 640px;">
+    <div class="panel-dark">
+      <h2 class="panel-title mb-4">
+        <span>{{ "Edit Product Details" if is_edit else "New Product Details" }}</span>
+      </h2>
+
+      <form method="POST" action="{{ action_url }}" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <!-- Product Name -->
+        <div class="form-group">
+          <label for="name" class="form-label-shelf">Product Name *</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            maxlength="100" 
+            class="input-shelf" 
+            value="{{ form_data.name or '' }}" 
+            placeholder="e.g. A4 Ruled Notebook (160 pgs)"
+            required
+          >
+          {% if errors.name %}
+            <div class="form-error-msg">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>{{ errors.name }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Price in Rupees -->
+        <div class="form-group">
+          <label for="price" class="form-label-shelf">Price in Rupees (₹) *</label>
+          <input 
+            type="number" 
+            id="price" 
+            name="price" 
+            step="0.01" 
+            min="0" 
+            class="input-shelf" 
+            value="{{ form_data.price or '' }}" 
+            placeholder="e.g. 65.00"
+            required
+          >
+          {% if errors.price %}
+            <div class="form-error-msg">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>{{ errors.price }}</span>
+            </div>
+          {% endif %}
+          <div class="form-hint">Stored accurately in paise. Historic invoices will keep their original price.</div>
+        </div>
+
+        <!-- Stock Quantity -->
+        <div class="form-group">
+          <label for="stock_quantity" class="form-label-shelf">Stock Quantity *</label>
+          <input 
+            type="number" 
+            id="stock_quantity" 
+            name="stock_quantity" 
+            min="0" 
+            step="1" 
+            class="input-shelf" 
+            value="{{ form_data.stock_quantity if form_data.stock_quantity is not none else '' }}" 
+            placeholder="e.g. 25"
+            required
+          >
+          {% if errors.stock_quantity %}
+            <div class="form-error-msg">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>{{ errors.stock_quantity }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Low Stock Alert Level -->
+        <div class="form-group">
+          <label for="low_stock_threshold" class="form-label-shelf">Low-stock Alert Level *</label>
+          <input 
+            type="number" 
+            id="low_stock_threshold" 
+            name="low_stock_threshold" 
+            min="0" 
+            step="1" 
+            class="input-shelf" 
+            value="{{ form_data.low_stock_threshold if form_data.low_stock_threshold is not none else 5 }}" 
+            placeholder="Default 5"
+            required
+          >
+          {% if errors.low_stock_threshold %}
+            <div class="form-error-msg">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>{{ errors.low_stock_threshold }}</span>
+            </div>
+          {% endif %}
+          <div class="form-hint">Products at or below this quantity appear on the Low Stock dashboard card.</div>
+        </div>
+
+        <!-- Form Buttons -->
+        <div class="d-flex align-items-center justify-content-end gap-3 mt-4 pt-2">
+          <a href="{{ url_for('products') }}" class="btn-shelf btn-outline-shelf">
+            Cancel
+          </a>
+          <button type="submit" class="btn-shelf btn-primary-shelf">
+            <i class="bi bi-check-lg"></i>
+            <span>Save Product</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
