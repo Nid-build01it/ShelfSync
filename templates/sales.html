@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Sales History{% endblock %}
+{% block page_title %}Sales History{% endblock %}
+
+{% block content %}
+<div class="panel-dark">
+  <div class="panel-title">
+    <span>All Sales Records</span>
+    <span style="font-size:14px; color:var(--panel-muted); font-weight:normal;">
+      {{ sales|length }} total {{ "invoice" if sales|length == 1 else "invoices" }}
+    </span>
+  </div>
+
+  {% if sales %}
+    <div class="table-responsive-box">
+      <table class="shelf-table">
+        <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Date & Time</th>
+            <th>Customer</th>
+            <th>Total Amount</th>
+            <th class="text-end">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sale in sales %}
+            <tr>
+              <td>
+                <strong>INV-{{ "%04d" | format(sale.id) }}</strong>
+              </td>
+              <td>
+                <span style="color:var(--panel-text);">{{ sale.created_at }}</span>
+              </td>
+              <td>
+                {{ sale.customer_name or "Walk-in customer" }}
+              </td>
+              <td>
+                <strong>{{ sale.total_paise | inr }}</strong>
+              </td>
+              <td class="text-end">
+                <a href="{{ url_for('invoice_view', invoice_id=sale.id) }}" class="btn-shelf btn-outline-shelf py-1 px-3" style="font-size:13px; min-height:36px;">
+                  <i class="bi bi-eye"></i>
+                  <span>View</span>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <i class="bi bi-clock-history"></i>
+      <p>No sales yet</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
