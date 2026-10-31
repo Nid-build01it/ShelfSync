@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error (500){% endblock %}
+{% block page_title %}Server Error{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6 text-center">
+    <div class="panel-dark py-5">
+      <div style="font-size: 64px; color: var(--danger-text); margin-bottom: 16px;">
+        <i class="bi bi-exclamation-octagon"></i>
+      </div>
+      <h2 style="color: #FFFFFF; font-size: 28px; margin-bottom: 12px;">500 - Internal Server Error</h2>
+      <p style="color: var(--panel-muted); margin-bottom: 28px; font-size: 16px;">
+        Something went wrong on our end. Please try again or return to the dashboard.
+      </p>
+      <a href="{{ url_for('dashboard') }}" class="btn-shelf btn-primary-shelf">
+        <i class="bi bi-house-door"></i>
+        <span>Return to Dashboard</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
