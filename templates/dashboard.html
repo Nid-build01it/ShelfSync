@@ -100,12 +100,12 @@
     </div>
   </div>
 
-  <!-- Low Stock Card -->
+  <!-- Low Stock Card (White Card) -->
   <div class="col-12 col-lg-5">
-    <div class="card-green h-100 d-flex flex-column">
+    <div class="card-white h-100 d-flex flex-column">
       <div class="card-title d-flex justify-content-between align-items-center">
         <span>Low Stock ({{ low_stock_count }})</span>
-        <a href="{{ url_for('products') }}" class="btn-shelf btn-dark-shelf py-1 px-3" style="font-size:13px; min-height:36px;">
+        <a href="{{ url_for('products') }}" class="btn-shelf btn-primary-shelf py-1 px-3" style="font-size:13px; min-height:36px;">
           Manage
         </a>
       </div>
@@ -114,14 +114,14 @@
         {% if low_stock_items %}
           <div class="d-flex flex-column gap-3">
             {% for item in low_stock_items %}
-              <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(17, 18, 20, 0.12);">
+              <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: #EEF2FB; border: 1px solid var(--card-white-border);">
                 <div class="d-flex align-items-center">
                   <span class="status-dot {{ 'dot-red' if item.stock_quantity == 0 else 'dot-amber' }}"></span>
                   <div>
-                    <a href="{{ url_for('products') }}" style="color:var(--card-stat-text); text-decoration:none; font-weight:600;">
+                    <a href="{{ url_for('products') }}" style="color:var(--card-white-text); text-decoration:none; font-weight:600;">
                       {{ item.name }}
                     </a>
-                    <div style="font-size:13px; color:var(--card-stat-muted);">
+                    <div style="font-size:13px; color:#425DAE;">
                       Alert at &le; {{ item.low_stock_threshold }}
                     </div>
                   </div>
@@ -137,7 +137,7 @@
             {% endfor %}
           </div>
         {% else %}
-          <div class="empty-state" style="color:var(--card-muted);">
+          <div class="empty-state" style="color:#425DAE;">
             <i class="bi bi-shield-check"></i>
             <p>All products have healthy stock levels</p>
           </div>

@@ -13,7 +13,7 @@
     <div class="col-12 col-lg-8">
       <div class="panel-dark">
         <!-- Customer Selection Top Row -->
-        <div class="p-3 mb-4 rounded" style="background: rgba(0, 0, 0, 0.15); border: 1px solid var(--panel-border);">
+        <div class="p-3 mb-4 rounded" style="background: rgba(26, 43, 99, 0.35); border: 1px solid var(--panel-border);">
           <div class="row g-3 align-items-center">
             <div class="col-auto">
               <label class="custom-checkbox-wrap" for="walkin_customer">
@@ -141,40 +141,40 @@
     <div class="col-12 col-lg-4">
       <div class="d-flex flex-column gap-4">
         <!-- Bill Total Card -->
-        <div class="card-green">
+        <div class="summary-card">
           <h2 class="card-title mb-3">Bill Total</h2>
           <div class="d-flex justify-content-between align-items-center mb-2" style="font-size: 14px; color: var(--card-stat-muted);">
             <span>Items:</span>
-            <span id="itemsCountDisplay" style="font-weight: 700; color: var(--card-stat-text); font-size: 16px;">0</span>
+            <span id="itemsCountDisplay" style="font-weight: 700; color: #FFFFFF; font-size: 16px;">0</span>
           </div>
 
-          <div class="my-4 py-2 border-top border-bottom" style="border-color: rgba(17, 18, 20, 0.2) !important;">
+          <div class="my-4 py-2 border-top border-bottom" style="border-color: rgba(182, 197, 240, 0.25) !important;">
             <div style="font-size: 13px; color: var(--card-stat-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Total Payable</div>
-            <div id="grandTotalDisplay" style="font-size: 34px; font-weight: 700; color: var(--card-stat-text); line-height: 1.2;">
+            <div id="grandTotalDisplay" style="font-size: 34px; font-weight: 700; color: #FFFFFF; line-height: 1.2;">
               ₹0.00
             </div>
           </div>
 
-          <button type="submit" class="btn-shelf btn-dark-shelf w-100 py-3" style="font-size: 16px;">
+          <button type="submit" class="btn-shelf btn-primary-shelf w-100 py-3" style="font-size: 16px; background-color: #B6C5F0; color: #1A2B63;">
             <i class="bi bi-check2-circle" style="font-size: 20px;"></i>
             <span>Generate Invoice</span>
           </button>
         </div>
 
         <!-- Recent Bills Card (last 3: invoice number, amount, View link) -->
-        <div class="card-green">
+        <div class="summary-card">
           <h3 class="card-title mb-3" style="font-size: 16px;">Recent Bills</h3>
           {% if recent_bills %}
             <div class="d-flex flex-column gap-2">
               {% for bill in recent_bills %}
-                <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(17, 18, 20, 0.12); font-size: 14px;">
+                <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(26, 43, 99, 0.35); font-size: 14px;">
                   <div>
                     <strong>INV-{{ "%04d" | format(bill.id) }}</strong>
                     <div style="font-size: 12px; color: var(--card-stat-muted);">{{ bill.created_at }}</div>
                   </div>
                   <div class="d-flex align-items-center gap-3">
-                    <span style="font-weight: 700; color: var(--card-stat-text);">{{ bill.total_paise | inr }}</span>
-                    <a href="{{ url_for('invoice_view', invoice_id=bill.id) }}" class="btn-shelf btn-dark-shelf py-1 px-2" style="font-size: 12px; min-height: 28px;">
+                    <span style="font-weight: 700; color: #FFFFFF;">{{ bill.total_paise | inr }}</span>
+                    <a href="{{ url_for('invoice_view', invoice_id=bill.id) }}" class="btn-shelf btn-outline-shelf py-1 px-2 view-link" style="font-size: 12px; min-height: 28px;">
                       View
                     </a>
                   </div>

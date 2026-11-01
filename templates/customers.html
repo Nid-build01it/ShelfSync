@@ -45,9 +45,9 @@
     </div>
   </div>
 
-  <!-- Right Side: Green Add Customer Card -->
+  <!-- Right Side: White Add Customer Card -->
   <div class="col-12 col-lg-5">
-    <div class="card-green">
+    <div class="card-white">
       <h2 class="card-title">Add Customer</h2>
       
       <form method="POST" action="{{ url_for('customers') }}" novalidate>
@@ -55,7 +55,7 @@
 
         <!-- Customer Name -->
         <div class="form-group">
-          <label for="name" class="form-label-shelf form-label-light">Customer Name *</label>
+          <label for="name" class="form-label-shelf">Customer Name *</label>
           <input 
             type="text" 
             id="name" 
@@ -66,7 +66,7 @@
             required
           >
           {% if errors.name %}
-            <div class="form-error-msg" style="color: #7B1721; font-weight: 600;">
+            <div class="form-error-msg" style="color: var(--btn-danger); font-weight: 600;">
               <i class="bi bi-exclamation-circle"></i>
               <span>{{ errors.name }}</span>
             </div>
@@ -75,7 +75,7 @@
 
         <!-- Phone Number -->
         <div class="form-group">
-          <label for="phone" class="form-label-shelf form-label-light">Phone Number (optional)</label>
+          <label for="phone" class="form-label-shelf">Phone Number (optional)</label>
           <input 
             type="tel" 
             id="phone" 
@@ -85,7 +85,7 @@
             placeholder="e.g. +91 98765 43210"
           >
           {% if errors.phone %}
-            <div class="form-error-msg" style="color: #7B1721; font-weight: 600;">
+            <div class="form-error-msg" style="color: var(--btn-danger); font-weight: 600;">
               <i class="bi bi-exclamation-circle"></i>
               <span>{{ errors.phone }}</span>
             </div>
@@ -94,7 +94,7 @@
 
         <!-- Email Address -->
         <div class="form-group">
-          <label for="email" class="form-label-shelf form-label-light">Email Address (optional)</label>
+          <label for="email" class="form-label-shelf">Email Address (optional)</label>
           <input 
             type="email" 
             id="email" 
@@ -104,16 +104,16 @@
             placeholder="e.g. rahul@example.com"
           >
           {% if errors.email %}
-            <div class="form-error-msg" style="color: #7B1721; font-weight: 600;">
+            <div class="form-error-msg" style="color: var(--btn-danger); font-weight: 600;">
               <i class="bi bi-exclamation-circle"></i>
               <span>{{ errors.email }}</span>
             </div>
           {% endif %}
         </div>
 
-        <!-- Full-width dark button -->
+        <!-- Full-width primary button -->
         <div class="mt-4 pt-2">
-          <button type="submit" class="btn-shelf btn-dark-shelf w-100">
+          <button type="submit" class="btn-shelf btn-primary-shelf w-100">
             <i class="bi bi-person-plus-fill"></i>
             <span>Save Customer</span>
           </button>
