@@ -1,10 +1,6 @@
 # ShelfSync
 
 > A clean, responsive Mini Inventory & Billing Management System for "Shree Mart" retail shop.
-
-- **Live demo**: (link to be added)
-- **Demo video**: (link to be added)
-
 ---
 
 ## Screenshots
