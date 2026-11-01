@@ -24,8 +24,9 @@
 
   <!-- Mobile Topbar -->
   <header class="mobile-topbar" aria-label="Mobile Navigation">
-    <a href="{{ url_for('dashboard') }}" class="d-flex align-items-center text-decoration-none">
+    <a href="{{ url_for('dashboard') }}" class="mobile-brand-link">
       <img src="{{ url_for('static', filename='logo.png') }}" alt="ShelfSync" class="mobile-logo-img">
+      <span class="logo-wordmark mobile-logo-text">Shel<em>f</em>Sync</span>
     </a>
     <button type="button" class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Menu">
       <i class="bi bi-list"></i>
@@ -40,6 +41,7 @@
     <aside class="app-sidebar" id="appSidebar">
       <a href="{{ url_for('dashboard') }}" class="logo-container">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="ShelfSync" class="sidebar-logo-img">
+        <span class="logo-wordmark">Shel<em>f</em>Sync</span>
       </a>
 
       <!-- 5 Navigation Links with Icons in order -->
